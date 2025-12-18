@@ -1,16 +1,10 @@
+import { calendarRequest } from '../api/index.js';
+
 const app = getApp();
 
 Page({
   data: {
-    spotMap: {
-      y2022m5d9: 'deep-spot',
-      y2022m5d10: 'spot',
-      y2022m6d10: 'spot',
-      y2022m7d10: 'spot',
-      y2022m8d10: 'spot',
-      y2022m10d1: 'spot',
-      y2023m5d10: 'spot',
-    },
+    spotMap: {},
     // 例子，今天之后的日期不能被选中
     // disabledDate({ day, month, year }) {
     //   const now = new Date();
@@ -22,12 +16,50 @@ Page({
     // 存储已经获取过的日期
     dateListMap: [],
   },
+  
+  onLoad() {
+    // 页面加载时获取日历标记数据
+    this.getCalendarSpots();
+  },
+  
+  // 获取日历标记数据
+  getCalendarSpots() {
+    calendarRequest.getCalendarSpots().then(res => {
+      if (res.code === 666) {
+        // 转换数据格式为组件需要的格式
+        const spotMap = {};
+        Object.keys(res.data).forEach(date => {
+          const [year, month, day] = date.split('-');
+          const key = `y${year}m${month}d${day}`;
+          spotMap[key] = res.data[date];
+        });
+        
+        this.setData({
+          spotMap: spotMap
+        });
+      }
+    }).catch(err => {
+      console.error('获取日历标记数据失败:', err);
+    });
+  },
+  
   // 获取日期数据，通常用来请求后台接口获取数据
   getDateList({ detail }) {
     // 检查是否已经获取过该月的数据
     if (this.filterGetList(detail)) {
-      // 获取数据
-      console.log(detail, '获取数据');
+      // 获取月份数据
+      const { setYear, setMonth } = detail;
+      calendarRequest.getMonthData({
+        year: setYear,
+        month: setMonth
+      }).then(res => {
+        if (res.code === 666) {
+          console.log('获取月份数据成功:', res.data);
+          // 这里可以处理月份数据，比如更新日历显示
+        }
+      }).catch(err => {
+        console.error('获取月份数据失败:', err);
+      });
     }
   },
   // 过滤重复月份请求的方法

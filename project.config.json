@@ -29,17 +29,23 @@
     "useCompilerPlugins": false,
     "minifyWXML": true,
     "useIsolateContext": true,
-    "ignoreUploadUnusedFiles": true
+    "ignoreUploadUnusedFiles": true,
+    "compileWorklet": false,
+    "localPlugins": false,
+    "condition": false,
+    "swc": false,
+    "disableSWC": true
   },
   "condition": {},
   "editorSetting": {
     "tabIndent": "insertSpaces",
     "tabSize": 2
   },
-  "libVersion": "2.24.6",
+  "libVersion": "3.12.1",
   "packOptions": {
     "ignore": [],
     "include": []
   },
-  "appid": "wx5cfd0a4f4d97bb1a"
+  "appid": "wx16ae06fd841b4d55",
+  "simulatorPluginLibVersion": {}
 }
