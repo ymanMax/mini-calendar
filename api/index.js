@@ -1,4 +1,4 @@
-import { calendarSpotData, monthData, mockDelay } from './mockData.js';
+import { calendarSpotData, monthData, holidayReminderData, mockDelay } from './mockData.js';
 
 // 日历相关请求
 export const calendarRequest = {
@@ -22,6 +22,46 @@ export const calendarRequest = {
     return mockDelay({
       code: 666,
       data: monthInfo
+    });
+  },
+
+  // 获取节日提醒设置
+  getHolidayReminderSettings() {
+    return mockDelay({
+      code: 666,
+      data: holidayReminderData.data.userSettings
+    });
+  },
+
+  // 保存节日提醒设置
+  saveHolidayReminderSettings(params) {
+    return mockDelay({
+      code: 666,
+      data: {
+        ...holidayReminderData.data.userSettings,
+        ...params
+      }
+    });
+  },
+
+  // 获取即将到来的节日提醒
+  getUpcomingHolidayReminders() {
+    return mockDelay({
+      code: 666,
+      data: holidayReminderData.data.upcomingReminders
+    });
+  },
+
+  // 标记节日提醒为已读
+  markHolidayReminderAsRead(params) {
+    const { id } = params;
+    const updatedReminders = holidayReminderData.data.upcomingReminders.map(reminder =>
+      reminder.id === id ? { ...reminder, isRead: true } : reminder
+    );
+
+    return mockDelay({
+      code: 666,
+      data: updatedReminders
     });
   }
 };

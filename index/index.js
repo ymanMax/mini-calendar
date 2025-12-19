@@ -1,4 +1,5 @@
 import { calendarRequest } from '../api/index.js';
+const { getReminderSettings, saveReminderSettings, checkAndShowReminders } = require('../utils/reminderUtil');
 
 const app = getApp();
 
@@ -15,11 +16,27 @@ Page({
     changeTime: '',
     // 存储已经获取过的日期
     dateListMap: [],
+    // 提醒设置
+    reminderSettings: {},
+    // 显示提醒设置界面
+    showReminderSettings: false
   },
-  
+
   onLoad() {
     // 页面加载时获取日历标记数据
     this.getCalendarSpots();
+    // 加载提醒设置
+    this.loadReminderSettings();
+    // 检查并显示提醒
+    checkAndShowReminders();
+  },
+
+  // 加载提醒设置
+  loadReminderSettings() {
+    const settings = getReminderSettings();
+    this.setData({
+      reminderSettings: settings
+    });
   },
   
   // 获取日历标记数据
@@ -86,6 +103,67 @@ Page({
   changetime() {
     this.setData({
       changeTime: '2022/1/1',
+    });
+  },
+
+  // 切换提醒设置界面显示
+  toggleReminderSettings() {
+    this.setData({
+      showReminderSettings: !this.data.showReminderSettings
+    });
+  },
+
+  // 启用/禁用提醒
+  toggleReminderEnabled() {
+    const newSettings = {
+      ...this.data.reminderSettings,
+      enabled: !this.data.reminderSettings.enabled
+    };
+    saveReminderSettings(newSettings);
+    this.setData({
+      reminderSettings: newSettings
+    });
+  },
+
+  // 设置提前提醒天数
+  setAdvanceDays(e) {
+    const days = parseInt(e.detail.value);
+    const newSettings = {
+      ...this.data.reminderSettings,
+      advanceDays: days
+    };
+    saveReminderSettings(newSettings);
+    this.setData({
+      reminderSettings: newSettings
+    });
+  },
+
+  // 设置提醒时间
+  setReminderTime(e) {
+    const time = e.detail.value;
+    const newSettings = {
+      ...this.data.reminderSettings,
+      time: time
+    };
+    saveReminderSettings(newSettings);
+    this.setData({
+      reminderSettings: newSettings
+    });
+  },
+
+  // 设置提醒类型
+  toggleReminderType(e) {
+    const type = e.currentTarget.dataset.type;
+    const newSettings = {
+      ...this.data.reminderSettings,
+      types: {
+        ...this.data.reminderSettings.types,
+        [type]: !this.data.reminderSettings.types[type]
+      }
+    };
+    saveReminderSettings(newSettings);
+    this.setData({
+      reminderSettings: newSettings
     });
   },
 });
