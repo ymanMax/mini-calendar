@@ -31,6 +31,16 @@ export const calendarSpotData = {
   }
 };
 
+// 日程数据
+export const scheduleData = {
+  code: 666,
+  data: [
+    { id: 1, date: '2024-01-15', title: '团队会议', content: '讨论Q1项目计划', type: 'meeting', isCompleted: false },
+    { id: 2, date: '2024-01-20', title: '项目截止', content: '提交项目第一阶段成果', type: 'deadline', isCompleted: false },
+    { id: 3, date: '2024-02-14', title: '情人节', content: '与家人共度', type: 'personal', isCompleted: false }
+  ]
+};
+
 // 月份数据
 export const monthData = {
   code: 666,

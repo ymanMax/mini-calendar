@@ -1,4 +1,53 @@
 <calendar title="" spotMap="{{spotMap}}" bindgetDateList="getDateList" bindselectDay="selectDay" bindopenChange="openChange" disabledDate="{{disabledDate}}" changeTime="{{changeTime}}"></calendar>
+
+<!-- 日程管理区域 -->
+<view class="schedule-manager">
+  <view class="section-title">日程管理</view>
+
+  <!-- 当前选中日期 -->
+  <view class="selected-date" wx:if="{{selectedDate}}">
+    当前选中日期: {{selectedDate}}
+  </view>
+
+  <!-- 日程输入区域 -->
+  <view class="schedule-input">
+    <input
+      class="schedule-title-input"
+      placeholder="输入日程标题"
+      value="{{newScheduleTitle}}"
+      bindinput="onTitleInput"
+    />
+    <input
+      class="schedule-content-input"
+      placeholder="输入日程内容"
+      value="{{newScheduleContent}}"
+      bindinput="onContentInput"
+    />
+    <button class="add-btn" bindtap="addSchedule">添加日程</button>
+  </view>
+
+  <!-- 日程列表 -->
+  <view class="schedule-list" wx:if="{{schedules.length > 0}}">
+    <view class="list-title">当前日程</view>
+    <view class="schedule-item" wx:for="{{schedules}}" wx:key="id">
+      <view class="schedule-info">
+        <view class="schedule-title">{{item.title}}</view>
+        <view class="schedule-content">{{item.content}}</view>
+        <view class="schedule-date">{{item.date}}</view>
+      </view>
+      <view class="schedule-actions">
+        <button class="edit-btn" size="mini" bindtap="editSchedule" data-id="{{item.id}}">编辑</button>
+        <button class="delete-btn" size="mini" bindtap="deleteSchedule" data-id="{{item.id}}">删除</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态提示 -->
+  <view class="empty-state" wx:if="{{schedules.length === 0 && selectedDate}}">
+    当前日期暂无日程，点击上方按钮添加
+  </view>
+</view>
+
 <view class="operation-wrap">
   <button bindtap="changetime" size="mini">点击跳转至22年1月1日</button>
 </view>
