@@ -63,6 +63,54 @@ export const monthData = {
   }
 };
 
+// 节日提醒数据
+export const holidayReminderData = {
+  code: 666,
+  data: {
+    // 用户提醒设置
+    userSettings: {
+      enabled: true,
+      advanceDays: 1,
+      time: '09:00',
+      types: {
+        traditional: true,
+        international: true,
+        solarTerm: false
+      }
+    },
+    // 即将到来的节日提醒
+    upcomingReminders: [
+      {
+        id: '1',
+        date: '2024-12-25',
+        holidayName: '圣诞节',
+        holidayType: 'international',
+        reminderDate: '2024-12-24',
+        reminderTime: '09:00',
+        isRead: false
+      },
+      {
+        id: '2',
+        date: '2025-01-01',
+        holidayName: '元旦',
+        holidayType: 'international',
+        reminderDate: '2024-12-31',
+        reminderTime: '09:00',
+        isRead: false
+      },
+      {
+        id: '3',
+        date: '2025-02-19',
+        holidayName: '春节',
+        holidayType: 'traditional',
+        reminderDate: '2025-02-18',
+        reminderTime: '09:00',
+        isRead: false
+      }
+    ]
+  }
+};
+
 // 模拟延迟函数
 export const mockDelay = (data, delay = 500) => {
   return new Promise((resolve) => {

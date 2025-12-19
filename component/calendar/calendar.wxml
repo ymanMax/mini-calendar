@@ -33,6 +33,9 @@
         <view wx:for="{{listItem}}" wx:key="dateList" class="day">
           <view class="bg {{calculate.spot(item,selectDay,spotMap)}} {{calculate.hasNow(item,nowDay)}} {{calculate.hasNowMonth(item,selectDay)}} {{calculate.hasSelect(item,selectDay,oldCurrent,listIndex)}} {{calculate.hasDisable(item,disabledDateList)}}" catchtap="selectChange" data-day="{{item.day}}" data-year="{{item.year}}" data-month="{{item.month}}">
             {{item.day}}
+            <view wx:if="{{item.holiday}}" class="holiday {{item.holiday.type}}">
+              {{item.holiday.name}}
+            </view>
           </view>
         </view>
       </view>

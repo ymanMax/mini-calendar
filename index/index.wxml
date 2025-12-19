@@ -1,4 +1,54 @@
 <calendar title="" spotMap="{{spotMap}}" bindgetDateList="getDateList" bindselectDay="selectDay" bindopenChange="openChange" disabledDate="{{disabledDate}}" changeTime="{{changeTime}}"></calendar>
 <view class="operation-wrap">
   <button bindtap="changetime" size="mini">点击跳转至22年1月1日</button>
+  <button bindtap="toggleReminderSettings" size="mini">节日提醒设置</button>
+</view>
+
+<!-- 节日提醒设置界面 -->
+<view wx:if="{{showReminderSettings}}" class="reminder-settings-modal">
+  <view class="reminder-settings-content">
+    <view class="reminder-settings-title">节日提醒设置</view>
+
+    <view class="reminder-setting-item">
+      <view class="setting-label">启用提醒</view>
+      <switch checked="{{reminderSettings.enabled}}" bindchange="toggleReminderEnabled" />
+    </view>
+
+    <view class="reminder-setting-item">
+      <view class="setting-label">提前提醒天数</view>
+      <picker mode="selector" range="{{[0,1,2,3,4,5,6,7]}}" value="{{reminderSettings.advanceDays}}" bindchange="setAdvanceDays">
+        <view class="picker-text">{{reminderSettings.advanceDays}}天</view>
+      </picker>
+    </view>
+
+    <view class="reminder-setting-item">
+      <view class="setting-label">提醒时间</view>
+      <picker mode="time" value="{{reminderSettings.time}}" bindchange="setReminderTime">
+        <view class="picker-text">{{reminderSettings.time}}</view>
+      </picker>
+    </view>
+
+    <view class="reminder-settings-section">
+      <view class="section-title">提醒类型</view>
+
+      <view class="reminder-setting-item">
+        <view class="setting-label">中国传统节日</view>
+        <switch checked="{{reminderSettings.types.traditional}}" bindchange="toggleReminderType" data-type="traditional" />
+      </view>
+
+      <view class="reminder-setting-item">
+        <view class="setting-label">国际节日</view>
+        <switch checked="{{reminderSettings.types.international}}" bindchange="toggleReminderType" data-type="international" />
+      </view>
+
+      <view class="reminder-setting-item">
+        <view class="setting-label">二十四节气</view>
+        <switch checked="{{reminderSettings.types.solarTerm}}" bindchange="toggleReminderType" data-type="solarTerm" />
+      </view>
+    </view>
+
+    <view class="reminder-settings-footer">
+      <button bindtap="toggleReminderSettings" size="mini">关闭</button>
+    </view>
+  </view>
 </view>

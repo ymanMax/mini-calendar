@@ -1,4 +1,6 @@
 // component/calendar/calendar.js
+const { getHolidayByDate } = require('../../utils/holidayData');
+
 Component({
   /**
    * 组件的属性列表
@@ -351,6 +353,7 @@ Component({
             day: now2.getDate(),
             month: now2.getMonth() + 1,
             year: now2.getFullYear(),
+            holiday: getHolidayByDate(now2)
           };
           dateList[i] = obj;
         }
@@ -370,6 +373,7 @@ Component({
             day: now2.getDate(),
             month: now2.getMonth() + 1,
             year: now2.getFullYear(),
+            holiday: getHolidayByDate(now2)
           };
           dateList[i] = obj;
         }
