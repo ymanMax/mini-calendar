@@ -250,3 +250,11 @@
   font-size: 28rpx;
   color: #929797;
 }
+/* 天气信息样式 */
+.weather-icon {
+  font-size: 14rpx;
+  margin-top: 2rpx;
+  color: #666;
+  text-align: center;
+  line-height: 1;
+}
