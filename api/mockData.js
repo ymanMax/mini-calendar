@@ -63,6 +63,20 @@ export const monthData = {
   }
 };
 
+// 备忘录数据
+export const memoData = {
+  code: 666,
+  data: [
+    {
+      id: 1,
+      date: '2024-12-19',
+      content: '今天是项目启动的日子',
+      createTime: new Date().toISOString(),
+      updateTime: new Date().toISOString()
+    }
+  ]
+};
+
 // 模拟延迟函数
 export const mockDelay = (data, delay = 500) => {
   return new Promise((resolve) => {
