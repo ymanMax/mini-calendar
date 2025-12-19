@@ -1,4 +1,58 @@
-<calendar title="" spotMap="{{spotMap}}" bindgetDateList="getDateList" bindselectDay="selectDay" bindopenChange="openChange" disabledDate="{{disabledDate}}" changeTime="{{changeTime}}"></calendar>
+<!-- 天气信息展示区域 -->
+<view class="weather-wrap" wx:if="{{todayWeather}}">
+  <view class="today-weather">
+    <view class="weather-main">
+      <view class="temperature">{{todayWeather.temperature}}</view>
+      <view class="weather">{{todayWeather.weather}}</view>
+    </view>
+    <view class="weather-details">
+      <view class="detail-item">
+        <view class="label">最高温</view>
+        <view class="value">{{todayWeather.high}}</view>
+      </view>
+      <view class="detail-item">
+        <view class="label">最低温</view>
+        <view class="value">{{todayWeather.low}}</view>
+      </view>
+      <view class="detail-item">
+        <view class="label">风向</view>
+        <view class="value">{{todayWeather.wind}}</view>
+      </view>
+      <view class="detail-item">
+        <view class="label">湿度</view>
+        <view class="value">{{todayWeather.humidity}}</view>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 天气预报 -->
+  <view class="weather-forecast" wx:if="{{weatherForecast.length > 0}}">
+    <view class="forecast-title">未来天气预报</view>
+    <scroll-view class="forecast-list" scroll-x="true">
+      <view class="forecast-item" wx:for="{{weatherForecast}}" wx:key="date">
+        <view class="date">{{item.date}}</view>
+        <view class="weather-icon">{{item.icon}}</view>
+        <view class="weather">{{item.weather}}</view>
+        <view class="temp-range">{{item.high}} / {{item.low}}</view>
+      </view>
+    </scroll-view>
+  </view>
+  
+  <!-- 天气建议 -->
+  <view class="weather-suggestions" wx:if="{{weatherSuggestions && todayWeather}}">
+    <view class="suggestions-title">天气建议</view>
+    <view class="suggestion-content">
+      {{weatherSuggestions[todayWeather.weather === '晴' ? 'sunny' : 
+        todayWeather.weather === '多云' ? 'cloudy' : 
+        todayWeather.weather === '阴' ? 'overcast' : 
+        todayWeather.weather.includes('雨') ? 'rainy' : 'sunny'].content}}
+    </view>
+  </view>
+</view>
+
+<!-- 日历组件 -->
+<calendar title="" spotMap="{{spotMap}}" weatherMap="{{weatherMap}}" bindgetDateList="getDateList" bindselectDay="selectDay" bindopenChange="openChange" disabledDate="{{disabledDate}}" changeTime="{{changeTime}}"></calendar>
+
 <view class="operation-wrap">
   <button bindtap="changetime" size="mini">点击跳转至22年1月1日</button>
 </view>

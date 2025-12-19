@@ -1,32 +1,31 @@
 import { calendarRequest } from '../api/index.js';
+import { weatherRequest } from '../api/index.js';
 
 const app = getApp();
 
 Page({
   data: {
     spotMap: {},
-    // 例子，今天之后的日期不能被选中
-    // disabledDate({ day, month, year }) {
-    //   const now = new Date();
-    //   const date = new Date(year, month - 1, day);
-    //   return date > now;
-    // },
-    // 需要改变日期时所使用的字段
+    // 天气数据
+    todayWeather: null,
+    weatherForecast: [],
+    weatherSuggestions: null,
+    // 转换后的天气数据，用于日历组件
+    weatherMap: {},
     changeTime: '',
-    // 存储已经获取过的日期
     dateListMap: [],
   },
   
   onLoad() {
-    // 页面加载时获取日历标记数据
     this.getCalendarSpots();
+    this.getTodayWeather();
+    this.getWeatherForecast();
+    this.getWeatherSuggestions();
   },
   
-  // 获取日历标记数据
   getCalendarSpots() {
     calendarRequest.getCalendarSpots().then(res => {
       if (res.code === 666) {
-        // 转换数据格式为组件需要的格式
         const spotMap = {};
         Object.keys(res.data).forEach(date => {
           const [year, month, day] = date.split('-');
@@ -43,11 +42,59 @@ Page({
     });
   },
   
-  // 获取日期数据，通常用来请求后台接口获取数据
+  getTodayWeather() {
+    weatherRequest.getTodayWeather().then(res => {
+      if (res.code === 666) {
+        this.setData({
+          todayWeather: res.data.today
+        });
+      }
+    }).catch(err => {
+      console.error('获取当天天气信息失败:', err);
+    });
+  },
+  
+  getWeatherForecast() {
+    weatherRequest.getWeatherForecast().then(res => {
+      if (res.code === 666) {
+        const forecast = res.data.forecast;
+        const weatherMap = this.convertWeatherToMap(forecast);
+        
+        this.setData({
+          weatherForecast: forecast,
+          weatherMap: weatherMap
+        });
+      }
+    }).catch(err => {
+      console.error('获取天气预报失败:', err);
+    });
+  },
+  
+  getWeatherSuggestions() {
+    weatherRequest.getWeatherSuggestions().then(res => {
+      if (res.code === 666) {
+        this.setData({
+          weatherSuggestions: res.data
+        });
+      }
+    }).catch(err => {
+      console.error('获取天气建议失败:', err);
+    });
+  },
+  
+  // 将天气预报数据转换为日历可用的格式
+  convertWeatherToMap(forecast) {
+    const weatherMap = {};
+    forecast.forEach(item => {
+      const [year, month, day] = item.date.split('-');
+      const key = `y${year}m${month}d${day}`;
+      weatherMap[key] = item;
+    });
+    return weatherMap;
+  },
+  
   getDateList({ detail }) {
-    // 检查是否已经获取过该月的数据
     if (this.filterGetList(detail)) {
-      // 获取月份数据
       const { setYear, setMonth } = detail;
       calendarRequest.getMonthData({
         year: setYear,
@@ -55,14 +102,13 @@ Page({
       }).then(res => {
         if (res.code === 666) {
           console.log('获取月份数据成功:', res.data);
-          // 这里可以处理月份数据，比如更新日历显示
         }
       }).catch(err => {
         console.error('获取月份数据失败:', err);
       });
     }
   },
-  // 过滤重复月份请求的方法
+  
   filterGetList({ setYear, setMonth }) {
     const dateListMap = new Set(this.data.dateListMap);
     const key = `y${setYear}m${setMonth}`;
@@ -75,14 +121,15 @@ Page({
     });
     return true;
   },
-  // 日期改变的回调
+  
   selectDay({ detail }) {
     console.log(detail, 'selectDay detail');
   },
-  // 展开收起时的回调
+  
   openChange({ detail }) {
     console.log(detail, 'openChange detail');
   },
+  
   changetime() {
     this.setData({
       changeTime: '2022/1/1',
