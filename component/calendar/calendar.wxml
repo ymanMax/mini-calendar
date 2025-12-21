@@ -1,12 +1,12 @@
 <!-- component/calendar/calendar.wxml -->
 <wxs src="./calendar.wxs" module="calculate" />
-<view class="calendar">
+<view class="calendar" style="background-color: {{currentTheme?.bgColor}}; color: {{currentTheme?.textColor}}">
   <view class="header">
     <view class="title">
       <view class="header-wrap">
         <view class="flex">
-          <view class="title">{{title}}</view>
-          <view class="month">
+          <view class="title" style="color: {{currentTheme?.textColor}}">{{title}}</view>
+          <view class="month" style="color: {{currentTheme?.subTextColor}}">
             <block wx:if="{{title}}">(</block>
             {{selectDay.year}}年{{selectDay.month}}月
             <block wx:if="{{title}}">)</block>
@@ -22,7 +22,7 @@
   </view>
   <!-- 日历头部 -->
   <view class="flex-around calendar-week">
-    <view class="calendar-week-item" wx:for="{{calendarHeadDate}}" wx:key="item">
+    <view class="calendar-week-item" wx:for="{{calendarHeadDate}}" wx:key="item" style="color: {{currentTheme?.subTextColor}}">
       {{calendarHeadDate[(index-firstDayOfWeek+7)%7]}}
     </view>
   </view>
@@ -31,9 +31,17 @@
     <swiper-item wx:for="{{[dateList0, dateList1, dateList2]}}" wx:for-index="listIndex" wx:for-item="listItem" wx:key="listIndex">
       <view class="flex-around flex-wrap calendar-main" style="height:{{listItem.length/7*82}}rpx">
         <view wx:for="{{listItem}}" wx:key="dateList" class="day">
-          <view class="bg {{calculate.spot(item,selectDay,spotMap)}} {{calculate.hasNow(item,nowDay)}} {{calculate.hasNowMonth(item,selectDay)}} {{calculate.hasSelect(item,selectDay,oldCurrent,listIndex)}} {{calculate.hasDisable(item,disabledDateList)}}" catchtap="selectChange" data-day="{{item.day}}" data-year="{{item.year}}" data-month="{{item.month}}">
+          <view
+            class="bg {{calculate.hasNow(item,nowDay)}} {{calculate.hasNowMonth(item,selectDay)}} {{calculate.hasSelect(item,selectDay,oldCurrent,listIndex)}} {{calculate.hasDisable(item,disabledDateList)}}"
+            catchtap="selectChange"
+            data-day="{{item.day}}" data-year="{{item.year}}" data-month="{{item.month}}"
+            style="{{calculate.hasNow(item,nowDay) ? 'color: ' + currentTheme?.mainColor + '; background-color: rgba(' + calculate.hexToRgb(currentTheme?.mainColor) + ', 0.2);' : ''}} {{calculate.hasSelect(item,selectDay,oldCurrent,listIndex) ? 'background-color: ' + currentTheme?.mainColor + '; color: white;' : ''}} {{calculate.hasNowMonth(item,selectDay) ? 'color: ' + currentTheme?.textColor : 'color: ' + currentTheme?.subTextColor}}"
+          >
             {{item.day}}
           </view>
+          <!-- 动态点 -->
+          <view wx:if="{{item.spotType == 'spot'}}" class="dynamic-spot" style="background-color: {{currentTheme?.mainColor}};"></view>
+          <view wx:if="{{item.spotType == 'deep-spot'}}" class="dynamic-spot" style="background-color: {{currentTheme?.accentColor}};"></view>
         </view>
       </view>
     </swiper-item>

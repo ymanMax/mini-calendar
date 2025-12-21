@@ -1,4 +1,47 @@
-<calendar title="" spotMap="{{spotMap}}" bindgetDateList="getDateList" bindselectDay="selectDay" bindopenChange="openChange" disabledDate="{{disabledDate}}" changeTime="{{changeTime}}"></calendar>
-<view class="operation-wrap">
-  <button bindtap="changetime" size="mini">点击跳转至22年1月1日</button>
+<view class="container">
+  <view class="theme-selector">
+    <view class="section-title">选择主题</view>
+    <view class="theme-list">
+      <view
+        wx:for="{{themes}}"
+        wx:key="value"
+        class="theme-item {{currentTheme == item.value ? 'active' : ''}}"
+        bindtap="switchTheme"
+        data-theme="{{item.value}}"
+      >
+        <view class="theme-color" style="background-color: {{item.value == 'default' ? '#0EC0B8' : item.value == 'blue' ? '#1890FF' : item.value == 'purple' ? '#722ED1' : item.value == 'pink' ? '#F5222D' : '#1890FF'}}"></view>
+        <view class="theme-name">{{item.name}}</view>
+      </view>
+    </view>
+
+    <view class="section-title">自定义主题</view>
+    <view class="custom-theme">
+      <view class="color-item">
+        <text>主色调：</text>
+        <input type="text" value="{{customColors.mainColor}}" bindinput="onMainColorChange" placeholder="输入颜色值" />
+        <view class="color-preview" style="background-color: {{customColors.mainColor}}"></view>
+      </view>
+      <view class="color-item">
+        <text>强调色：</text>
+        <input type="text" value="{{customColors.accentColor}}" bindinput="onAccentColorChange" placeholder="输入颜色值" />
+        <view class="color-preview" style="background-color: {{customColors.accentColor}}"></view>
+      </view>
+      <button bindtap="applyCustomTheme" type="primary" size="mini">应用自定义主题</button>
+    </view>
+  </view>
+
+  <calendar
+    title=""
+    spotMap="{{spotMap}}"
+    bindgetDateList="getDateList"
+    bindselectDay="selectDay"
+    bindopenChange="openChange"
+    disabledDate="{{disabledDate}}"
+    changeTime="{{changeTime}}"
+    theme="{{currentTheme}}"
+  ></calendar>
+
+  <view class="operation-wrap">
+    <button bindtap="changetime" size="mini">点击跳转至22年1月1日</button>
+  </view>
 </view>

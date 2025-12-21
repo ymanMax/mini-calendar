@@ -46,6 +46,11 @@ Component({
       type: Number,
       value: 7,
     },
+    theme: {
+      // 主题配置
+      type: Object,
+      value: 'default',
+    },
   },
 
   /**
@@ -64,7 +69,51 @@ Component({
     swiperHeight: 0,
     backChange: false, //跳过change切换
     disabledDateList: {}, //禁用的日期集合
-    calendarHeadDate: ['一', '二', '三', '四', '五', '六', '日'] //日历头部的渲染数组
+    calendarHeadDate: ['一', '二', '三', '四', '五', '六', '日'], //日历头部的渲染数组
+    // 预设主题配置
+    themes: {
+      default: {
+        name: '默认主题',
+        mainColor: '#0EC0B8',
+        accentColor: '#FF7416',
+        bgColor: '#ffffff',
+        textColor: '#333333',
+        subTextColor: '#999999'
+      },
+      blue: {
+        name: '蓝色主题',
+        mainColor: '#1890FF',
+        accentColor: '#52C41A',
+        bgColor: '#ffffff',
+        textColor: '#333333',
+        subTextColor: '#999999'
+      },
+      purple: {
+        name: '紫色主题',
+        mainColor: '#722ED1',
+        accentColor: '#FA8C16',
+        bgColor: '#ffffff',
+        textColor: '#333333',
+        subTextColor: '#999999'
+      },
+      pink: {
+        name: '粉色主题',
+        mainColor: '#F5222D',
+        accentColor: '#EB2F96',
+        bgColor: '#ffffff',
+        textColor: '#333333',
+        subTextColor: '#999999'
+      },
+      dark: {
+        name: '深色主题',
+        mainColor: '#1890FF',
+        accentColor: '#52C41A',
+        bgColor: '#1E1E1E',
+        textColor: '#E0E0E0',
+        subTextColor: '#888888'
+      }
+    },
+    currentTheme: null // 当前使用的主题
   },
 
   /**
@@ -166,9 +215,21 @@ Component({
         setDay: appointMonth.getDate(),
         hasBack: true,
       });
+
+      // 为每个日期项添加主题相关信息
+      const themedDataList = dataList.map(item => {
+        const key = `y${item.year}m${item.month}d${item.day}`;
+        const spotType = this.properties.spotMap[key];
+
+        return {
+          ...item,
+          spotType: spotType,
+        };
+      });
+
       const disabledDateList = {};
       if (this.data.disabledDate)
-        dataList.forEach((item) => {
+        themedDataList.forEach((item) => {
           if (
             !this.data.disabledDateList[
             `disabled${item.year}M${item.month}D${item.day}`
@@ -181,7 +242,7 @@ Component({
           }
         });
       this.setData({
-        [listName]: dataList,
+        [listName]: themedDataList,
         disabledDateList: Object.assign(
           this.data.disabledDateList,
           disabledDateList
@@ -374,6 +435,18 @@ Component({
           dateList[i] = obj;
         }
       }
+
+      // 为每个日期项添加主题相关信息
+      dateList = dateList.map(item => {
+        const key = `y${item.year}m${item.month}d${item.day}`;
+        const spotType = this.properties.spotMap[key];
+
+        return {
+          ...item,
+          spotType: spotType,
+        };
+      });
+
       if (hasBack) {
         return dateList;
       }
@@ -484,6 +557,9 @@ Component({
   lifetimes: {
     // 加载事件
     ready() {
+      // 初始化主题
+      this.initTheme();
+
       let now = this.data.defaultTime
         ? new Date(this.data.defaultTime)
         : new Date();
@@ -506,6 +582,61 @@ Component({
       this.setSwiperHeight(1);
     },
   },
+
+  methods: {
+    // 初始化主题
+    initTheme() {
+      let currentTheme;
+      const { theme, themes } = this.data;
+
+      if (typeof theme === 'string') {
+        // 如果传入的是主题名称
+        currentTheme = themes[theme] || themes.default;
+      } else if (typeof theme === 'object') {
+        // 如果传入的是自定义主题对象
+        currentTheme = {
+          name: '自定义主题',
+          mainColor: theme.mainColor || themes.default.mainColor,
+          accentColor: theme.accentColor || themes.default.accentColor,
+          bgColor: theme.bgColor || themes.default.bgColor,
+          textColor: theme.textColor || themes.default.textColor,
+          subTextColor: theme.subTextColor || themes.default.subTextColor
+        };
+      } else {
+        currentTheme = themes.default;
+      }
+
+      this.setData({
+        currentTheme
+      });
+    },
+
+    // 切换主题
+    switchTheme(themeConfig) {
+      let newTheme;
+      const { themes } = this.data;
+
+      if (typeof themeConfig === 'string') {
+        newTheme = themes[themeConfig] || themes.default;
+      } else if (typeof themeConfig === 'object') {
+        newTheme = {
+          name: '自定义主题',
+          mainColor: themeConfig.mainColor || themes.default.mainColor,
+          accentColor: themeConfig.accentColor || themes.default.accentColor,
+          bgColor: themeConfig.bgColor || themes.default.bgColor,
+          textColor: themeConfig.textColor || themes.default.textColor,
+          subTextColor: themeConfig.subTextColor || themes.default.subTextColor
+        };
+      } else {
+        newTheme = themes.default;
+      }
+
+      this.setData({
+        currentTheme: newTheme
+      });
+
+      this.triggerEvent('themeChanged', { theme: newTheme });
+    },
   observers: {
     // 重新设置打开状态
     defaultOpen(value) {
@@ -518,6 +649,10 @@ Component({
       // 检测切换日期
       if (!value) return;
       this.witchDate(new Date(value));
+    },
+    // 主题变化监听
+    theme(value) {
+      this.initTheme();
     },
   },
 });

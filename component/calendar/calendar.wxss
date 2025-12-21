@@ -199,8 +199,6 @@
   width: 66rpx;
   border-radius: 50%;
   text-align: center;
-  color: #0EC0B8;
-  background: rgba(14, 192, 184, 0.2);
   margin: 0 auto;
 }
 
@@ -208,8 +206,6 @@
   width: 66rpx;
   border-radius: 50%;
   text-align: center;
-  color: #fff;
-  background: #0EC0B8;
   margin: 0 auto;
 }
 
@@ -220,7 +216,6 @@
   width: 8rpx;
   height: 8rpx;
   bottom: 22rpx;
-  background: #0EC0B8;
   border-radius: 50%;
   left: 0;
   right: 0;
@@ -234,7 +229,18 @@
   width: 8rpx;
   height: 8rpx;
   bottom: 22rpx;
-  background: #FF7416;
+  border-radius: 50%;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.calendar .calendar-main .day .dynamic-spot {
+  position: absolute;
+  display: block;
+  width: 8rpx;
+  height: 8rpx;
+  bottom: 22rpx;
   border-radius: 50%;
   left: 0;
   right: 0;
