@@ -53,10 +53,32 @@ function hasDisable(item, disabledDateList) {
   return '';
 }
 
+// 将十六进制颜色转换为RGB格式
+function hexToRgb(hex) {
+  if (!hex) return '14, 192, 184'; // 默认值
+  hex = hex.replace('#', '');
+  var r, g, b;
+
+  if (hex.length === 3) {
+    r = parseInt(hex.substr(0, 1) + hex.substr(0, 1), 16);
+    g = parseInt(hex.substr(1, 1) + hex.substr(1, 1), 16);
+    b = parseInt(hex.substr(2, 1) + hex.substr(2, 1), 16);
+  } else if (hex.length === 6) {
+    r = parseInt(hex.substr(0, 2), 16);
+    g = parseInt(hex.substr(2, 2), 16);
+    b = parseInt(hex.substr(4, 2), 16);
+  } else {
+    return '14, 192, 184'; // 默认值
+  }
+
+  return r + ', ' + g + ', ' + b;
+}
+
 module.exports = {
   spot: spot,
   hasNow: hasNow,
   hasNowMonth: hasNowMonth,
   hasSelect: hasSelect,
   hasDisable: hasDisable,
+  hexToRgb: hexToRgb,
 }
