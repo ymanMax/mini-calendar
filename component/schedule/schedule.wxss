@@ -1,0 +1,230 @@
+/* component/schedule/schedule.wxss */
+.schedule-container {
+  position: relative;
+}
+
+/* 弹窗样式 */
+.schedule-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+  background-color: white;
+  border-radius: 10rpx;
+  width: 90%;
+  max-width: 500rpx;
+  box-shadow: 0 0 20rpx rgba(0, 0, 0, 0.1);
+  animation: slideUp 0.3s ease;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx;
+  border-bottom: 1rpx solid #eee;
+}
+
+.modal-title {
+  font-size: 32rpx;
+  font-weight: bold;
+}
+
+.modal-close {
+  font-size: 48rpx;
+  color: #999;
+  padding: 0 10rpx;
+}
+
+.modal-body {
+  padding: 20rpx;
+}
+
+/* 表单样式 */
+.form-item {
+  margin-bottom: 30rpx;
+}
+
+.form-label {
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 15rpx;
+  border: 1rpx solid #ddd;
+  border-radius: 5rpx;
+  font-size: 28rpx;
+}
+
+.date-time-picker {
+  display: flex;
+  gap: 20rpx;
+}
+
+.date-time-picker .picker {
+  flex: 1;
+  padding: 15rpx;
+  border: 1rpx solid #ddd;
+  border-radius: 5rpx;
+  font-size: 28rpx;
+  color: #666;
+  background-color: #f9f9f9;
+}
+
+.form-actions {
+  display: flex;
+  gap: 20rpx;
+  margin-top: 40rpx;
+}
+
+.form-actions button {
+  flex: 1;
+  margin: 0;
+}
+
+/* 日程列表样式 */
+.schedule-list {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  border-radius: 20rpx 20rpx 0 0;
+  box-shadow: 0 -5rpx 20rpx rgba(0, 0, 0, 0.1);
+  max-height: 80vh;
+  animation: slideUp 0.3s ease;
+  z-index: 9999;
+}
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx;
+  border-bottom: 1rpx solid #eee;
+}
+
+.list-title {
+  font-size: 32rpx;
+  font-weight: bold;
+}
+
+.list-close {
+  font-size: 48rpx;
+  color: #999;
+  padding: 0 10rpx;
+}
+
+.list-body {
+  padding: 20rpx;
+  max-height: calc(80vh - 180rpx);
+  overflow-y: auto;
+}
+
+.empty-tip {
+  text-align: center;
+  color: #999;
+  padding: 40rpx 0;
+  font-size: 28rpx;
+}
+
+.empty-tip button {
+  margin-top: 20rpx;
+}
+
+.schedule-items {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.schedule-item {
+  display: flex;
+  gap: 20rpx;
+  padding: 20rpx;
+  background-color: #f9f9f9;
+  border-radius: 10rpx;
+}
+
+.item-time {
+  width: 120rpx;
+  font-size: 24rpx;
+  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border-radius: 5rpx;
+  padding: 10rpx;
+}
+
+.item-content {
+  flex: 1;
+}
+
+.item-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  margin-bottom: 10rpx;
+}
+
+.item-desc {
+  font-size: 24rpx;
+  color: #666;
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.item-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+}
+
+.item-actions button {
+  margin: 0;
+  padding: 0 10rpx;
+  font-size: 24rpx;
+}
+
+.list-footer {
+  padding: 20rpx;
+  border-top: 1rpx solid #eee;
+}
+
+.list-footer button {
+  margin: 0;
+}
+
+/* 动画效果 */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes slideDown {
+  from { transform: translateY(0); }
+  to { transform: translateY(100%); }
+}
