@@ -2,3 +2,4 @@
 <view class="operation-wrap">
   <button bindtap="changetime" size="mini">点击跳转至22年1月1日</button>
 </view>
+<schedule></schedule>

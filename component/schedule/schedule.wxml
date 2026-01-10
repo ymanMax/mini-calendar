@@ -1,0 +1,57 @@
+<view class="schedule-container">
+  <!-- 日程列表 -->
+  <view class="schedule-list">
+    <view wx:for="{{schedules}}" wx:key="id" class="schedule-item">
+      <view class="schedule-info">
+        <view class="schedule-title">{{item.title}}</view>
+        <view class="schedule-time">{{item.date}} {{item.time}}</view>
+        <view class="schedule-description">{{item.description}}</view>
+      </view>
+      <view class="schedule-actions">
+        <button bindtap="editSchedule" data-id="{{item.id}}" size="mini">编辑</button>
+        <button bindtap="deleteSchedule" data-id="{{item.id}}" size="mini" type="warn">删除</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 添加日程按钮 -->
+  <view class="add-schedule-btn-wrap">
+    <button bindtap="showAddModal" type="primary">添加日程</button>
+  </view>
+
+  <!-- 日程弹窗 -->
+  <view wx:if="{{showModal}}" class="modal-overlay" bindtap="hideModal">
+    <view class="modal-content" catchtap="stopPropagation">
+      <view class="modal-header">
+        <text class="modal-title">{{editingSchedule ? '编辑日程' : '添加日程'}}</text>
+        <text class="modal-close" bindtap="hideModal">×</text>
+      </view>
+      <view class="modal-body">
+        <view class="form-item">
+          <label>标题：</label>
+          <input placeholder="请输入日程标题" value="{{formData.title}}" bindinput="onInputChange" data-name="title" />
+        </view>
+        <view class="form-item">
+          <label>日期：</label>
+          <picker mode="date" value="{{formData.date}}" bindchange="onDateChange">
+            <view class="picker">{{formData.date || '请选择日期'}}</view>
+          </picker>
+        </view>
+        <view class="form-item">
+          <label>时间：</label>
+          <picker mode="time" value="{{formData.time}}" bindchange="onTimeChange">
+            <view class="picker">{{formData.time || '请选择时间'}}</view>
+          </picker>
+        </view>
+        <view class="form-item">
+          <label>描述：</label>
+          <textarea placeholder="请输入日程描述" value="{{formData.description}}" bindinput="onInputChange" data-name="description" />
+        </view>
+      </view>
+      <view class="modal-footer">
+        <button bindtap="hideModal" size="mini">取消</button>
+        <button bindtap="saveSchedule" type="primary" size="mini">保存</button>
+      </view>
+    </view>
+  </view>
+</view>
