@@ -1,6 +1,7 @@
 {
   "usingComponents": {
-    "calendar":"/component/calendar/calendar"
+    "calendar":"/component/calendar/calendar",
+    "schedule":"/component/schedule/schedule"
   },
   "navigationBarTitleText": "日程"
 }

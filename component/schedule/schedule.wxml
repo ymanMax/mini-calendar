@@ -1,0 +1,70 @@
+<!-- component/schedule/schedule.wxml -->
+<view class="schedule-container">
+  <!-- 日程弹窗 -->
+  <view class="schedule-modal" wx:if="{{showModal}}" catchtap="closeModal">
+    <view class="modal-content" catchtap="stopPropagation">
+      <view class="modal-header">
+        <view class="modal-title">{{isEdit ? '编辑日程' : '添加日程'}}</view>
+        <view class="modal-close" bindtap="closeModal">×</view>
+      </view>
+      <view class="modal-body">
+        <form bindsubmit="submitForm">
+          <view class="form-item">
+        <view class="form-label">标题</view>
+        <input name="title" type="text" placeholder="请输入日程标题" value="{{formData.title}}" bindinput="onInputChange" data-name="title" required />
+      </view>
+      <view class="form-item">
+        <view class="form-label">时间</view>
+        <view class="date-time-picker">
+          <picker mode="date" value="{{formData.date}}" start="1900-01-01" end="2100-12-31" bindchange="onDateChange">
+            <view class="picker">{{formData.date}}</view>
+          </picker>
+          <picker mode="time" value="{{formData.time}}" bindchange="onTimeChange">
+            <view class="picker">{{formData.time}}</view>
+          </picker>
+        </view>
+      </view>
+      <view class="form-item">
+        <view class="form-label">内容</view>
+        <textarea name="content" placeholder="请输入日程内容" value="{{formData.content}}" bindinput="onInputChange" data-name="content" style="height: 120rpx;" />
+      </view>
+          <view class="form-actions">
+            <button formType="submit" type="primary">{{isEdit ? '更新' : '保存'}}</button>
+            <button wx:if="{{isEdit}}" type="warn" bindtap="deleteSchedule" data-id="{{editingId}}">删除</button>
+            <button bindtap="closeModal">取消</button>
+          </view>
+        </form>
+      </view>
+    </view>
+  </view>
+
+  <!-- 日程列表 -->
+  <view class="schedule-list" wx:if="{{showList}}">
+    <view class="list-header">
+      <view class="list-title">{{currentDate}} 日程</view>
+      <view class="list-close" bindtap="closeList">×</view>
+    </view>
+    <view class="list-body">
+      <view wx:if="{{schedules.length === 0}}" class="empty-tip">
+        暂无日程
+        <button size="mini" bindtap="openAddModal">添加</button>
+      </view>
+      <view wx:else class="schedule-items">
+        <view wx:for="{{schedules}}" wx:key="id" class="schedule-item">
+          <view class="item-time">{{item.time}}</view>
+          <view class="item-content">
+            <view class="item-title">{{item.title}}</view>
+            <view class="item-desc">{{item.content}}</view>
+          </view>
+          <view class="item-actions">
+            <button size="mini" bindtap="openEditModal" data-schedule="{{item}}">编辑</button>
+            <button size="mini" type="warn" bindtap="deleteSchedule" data-id="{{item.id}}">删除</button>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="list-footer">
+      <button type="primary" bindtap="openAddModal">添加日程</button>
+    </view>
+  </view>
+</view>

@@ -15,6 +15,8 @@ Page({
     changeTime: '',
     // 存储已经获取过的日期
     dateListMap: [],
+    // 当前选中的日期
+    selectedDate: '',
   },
   
   onLoad() {
@@ -78,6 +80,39 @@ Page({
   // 日期改变的回调
   selectDay({ detail }) {
     console.log(detail, 'selectDay detail');
+    // 格式化选中的日期为YYYY-MM-DD格式
+    const selectedDate = `${detail.year}-${detail.month.toString().padStart(2, '0')}-${detail.day.toString().padStart(2, '0')}`;
+    this.setData({
+      selectedDate: selectedDate
+    });
+  },
+  
+  // 打开添加日程弹窗
+  openScheduleModal() {
+    this.selectComponent('#scheduleComponent').openAddModal();
+  },
+  
+  // 打开日程列表
+  openScheduleList() {
+    this.selectComponent('#scheduleComponent').openList();
+  },
+  
+  // 日程变化时的回调
+  onScheduleChange({ detail }) {
+    console.log('日程变化:', detail.schedules);
+    // 更新日历标记
+    this.updateSpotMap(detail.schedules);
+  },
+  
+  // 更新日历标记
+  updateSpotMap(schedules) {
+    const spotMap = {};
+    schedules.forEach(schedule => {
+      const [year, month, day] = schedule.date.split('-');
+      const key = `y${year}m${month}d${day}`;
+      spotMap[key] = true;
+    });
+    this.setData({ spotMap });
   },
   // 展开收起时的回调
   openChange({ detail }) {

@@ -1,4 +1,7 @@
 <calendar title="" spotMap="{{spotMap}}" bindgetDateList="getDateList" bindselectDay="selectDay" bindopenChange="openChange" disabledDate="{{disabledDate}}" changeTime="{{changeTime}}"></calendar>
 <view class="operation-wrap">
+  <button bindtap="openScheduleModal" size="mini" type="primary">添加日程</button>
+  <button bindtap="openScheduleList" size="mini">查看日程</button>
   <button bindtap="changetime" size="mini">点击跳转至22年1月1日</button>
 </view>
+<schedule id="scheduleComponent" currentDate="{{selectedDate}}" bindscheduleChange="onScheduleChange"></schedule>
