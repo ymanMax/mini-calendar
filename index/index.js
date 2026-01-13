@@ -15,8 +15,23 @@ Page({
     changeTime: '',
     // 存储已经获取过的日期
     dateListMap: [],
+    // 当前选中的主题
+    currentTheme: 'default',
+    // 预设主题列表
+    themes: [
+      { name: '默认主题', value: 'default' },
+      { name: '蓝色主题', value: 'blue' },
+      { name: '紫色主题', value: 'purple' },
+      { name: '粉色主题', value: 'pink' },
+      { name: '深色主题', value: 'dark' }
+    ],
+    // 自定义主题颜色
+    customColors: {
+      mainColor: '#0EC0B8',
+      accentColor: '#FF7416'
+    }
   },
-  
+
   onLoad() {
     // 页面加载时获取日历标记数据
     this.getCalendarSpots();
@@ -86,6 +101,34 @@ Page({
   changetime() {
     this.setData({
       changeTime: '2022/1/1',
+    });
+  },
+
+  // 切换主题
+  switchTheme(e) {
+    const themeValue = e.currentTarget.dataset.theme;
+    this.setData({
+      currentTheme: themeValue
+    });
+  },
+
+  // 应用自定义主题
+  applyCustomTheme() {
+    this.setData({
+      currentTheme: this.data.customColors
+    });
+  },
+
+  // 更新自定义主题颜色
+  onMainColorChange(e) {
+    this.setData({
+      'customColors.mainColor': e.detail.value
+    });
+  },
+
+  onAccentColorChange(e) {
+    this.setData({
+      'customColors.accentColor': e.detail.value
     });
   },
 });
