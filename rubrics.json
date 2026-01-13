@@ -1,0 +1,200 @@
+[
+  {
+    "rubric_id": "1",
+    "rubric_content": "日程管理功能必须以组件形式实现",
+    "必要性": "Essential",
+    "评估维度": "功能要求（functional requirement）",
+    "验证方式": "静态-模型验证",
+    "显性(Explicit)隐性（Implicit）": "Explicit",
+    "rationale": "题目明确要求日程管理功能需以组件形式引入到日历index页面，这是核心显性要求，通过检查代码结构可判断是否为组件形式。"
+  },
+  {
+    "rubric_id": "2",
+    "rubric_content": "组件必须在index.json中注册",
+    "必要性": "Essential",
+    "评估维度": "功能要求（functional requirement）",
+    "验证方式": "静态-模型验证",
+    "显性(Explicit)隐性（Implicit）": "Explicit",
+    "rationale": "微信小程序组件需要在页面json文件中注册才能使用，这是实现组件引入的必要步骤。"
+  },
+  {
+    "rubric_id": "3",
+    "rubric_content": "组件必须在index.wxml中使用",
+    "必要性": "Essential",
+    "评估维度": "功能要求（functional requirement）",
+    "验证方式": "静态-模型验证",
+    "显性(Explicit)隐性（Implicit）": "Explicit",
+    "rationale": "注册后的组件需要在页面wxml中使用才能显示，这是组件引入的必要步骤。"
+  },
+  {
+    "rubric_id": "4",
+    "rubric_content": "必须支持查看日程功能",
+    "必要性": "Essential",
+    "评估维度": "功能要求（functional requirement）",
+    "验证方式": "动态-人工验证",
+    "显性(Explicit)隐性（Implicit）": "Explicit",
+    "rationale": "题目明确要求支持查看日程功能，这是核心功能之一，需要通过实际操作验证。"
+  },
+  {
+    "rubric_id": "5",
+    "rubric_content": "必须支持编辑日程功能",
+    "必要性": "Essential",
+    "评估维度": "功能要求（functional requirement）",
+    "验证方式": "动态-人工验证",
+    "显性(Explicit)隐性（Implicit）": "Explicit",
+    "rationale": "题目明确要求支持编辑日程功能，这是核心功能之一，需要通过实际操作验证。"
+  },
+  {
+    "rubric_id": "6",
+    "rubric_content": "必须支持删除日程功能",
+    "必要性": "Essential",
+    "评估维度": "功能要求（functional requirement）",
+    "验证方式": "动态-人工验证",
+    "显性(Explicit)隐性（Implicit）": "Explicit",
+    "rationale": "题目明确要求支持删除日程功能，这是核心功能之一，需要通过实际操作验证。"
+  },
+  {
+    "rubric_id": "7",
+    "rubric_content": "必须包含表单校验功能",
+    "必要性": "Important",
+    "评估维度": "功能要求（functional requirement）",
+    "验证方式": "动态-人工验证",
+    "显性(Explicit)隐性（Implicit）": "Explicit",
+    "rationale": "题目明确要求要有必要的表单校验，这是确保数据完整性的重要措施，需要通过实际操作验证。"
+  },
+  {
+    "rubric_id": "8",
+    "rubric_content": "必须使用本地存储进行数据交互",
+    "必要性": "Essential",
+    "评估维度": "功能要求（functional requirement）",
+    "验证方式": "静态-模型验证",
+    "显性(Explicit)隐性（Implicit）": "Explicit",
+    "rationale": "题目明确要求使用本地存储进行数据交互，这是核心技术要求，通过检查代码可判断是否使用了wx.setStorageSync/wx.getStorageSync。"
+  },
+  {
+    "rubric_id": "9",
+    "rubric_content": "添加日程必须以弹窗形式进行交互",
+    "必要性": "Essential",
+    "评估维度": "功能要求（functional requirement）",
+    "验证方式": "动态-人工验证",
+    "显性(Explicit)隐性（Implicit）": "Explicit",
+    "rationale": "题目明确要求添加日程以弹窗形式进行交互，这是UI交互的核心要求，需要通过实际操作验证。"
+  },
+  {
+    "rubric_id": "10",
+    "rubric_content": "必须添加必要的过渡动画",
+    "必要性": "Important",
+    "评估维度": "风格（style）",
+    "验证方式": "动态-人工验证",
+    "显性(Explicit)隐性（Implicit）": "Explicit",
+    "rationale": "题目明确要求添加必要的过渡动画，这是提升用户体验的重要措施，需要通过实际操作验证。"
+  },
+  {
+    "rubric_id": "11",
+    "rubric_content": "功能页面风格需与当前风格一致",
+    "必要性": "Important",
+    "评估维度": "风格（style）",
+    "验证方式": "静态-人工验证",
+    "显性(Explicit)隐性（Implicit）": "Explicit",
+    "rationale": "题目明确要求生成的功能页面风格需与当前风格一致，这是UI设计的重要要求，需要通过视觉检查验证。"
+  },
+  {
+    "rubric_id": "12",
+    "rubric_content": "不得出现直观的视觉配色冲突问题",
+    "必要性": "Important",
+    "评估维度": "风格（style）",
+    "验证方式": "静态-人工验证",
+    "显性(Explicit)隐性（Implicit）": "Explicit",
+    "rationale": "题目明确要求不要出现直观的视觉配色冲突问题，这是UI设计的基本要求，需要通过视觉检查验证。"
+  },
+  {
+    "rubric_id": "13",
+    "rubric_content": "日程数据完全重复时，不允许添加",
+    "必要性": "Optional",
+    "评估维度": "鲁棒性（robustness）",
+    "验证方式": "静态-模型验证",
+    "显性(Explicit)隐性（Implicit）": "Implicit",
+    "rationale": "作为微信小程序开发，需要遵循微信官方的开发规范，这是隐性的鲁棒性要求，通过检查代码结构和语法可判断。"
+  },
+  {
+    "rubric_id": "14",
+    "rubric_content": "使用try-catch处理可能出现的异常情况，如本地存储读写失败等异常情况",
+    "必要性": "Important",
+    "评估维度": "鲁棒性（robustness）",
+    "验证方式": "静态-模型验证",
+    "显性(Explicit)隐性（Implicit）": "Implicit",
+    "rationale": "良好的代码应该处理可能出现的异常情况，如本地存储读写失败，这是隐性的鲁棒性要求。"
+  },
+  {
+    "rubric_id": "15",
+    "rubric_content": "日程数据支持分页加载，而不是一次性加载所有数据",
+    "必要性": "Optional",
+    "评估维度": "鲁棒性（robustness）",
+    "验证方式": "动态-人工验证",
+    "显性(Explicit)隐性（Implicit）": "Implicit",
+    "rationale": "良好的用户体验，日程数据应该支持分页加载，这是隐性的代码质量要求，需要通过人工检查验证。"
+  },
+  {
+    "rubric_id": "16",
+    "rubric_content": "表单校验必须包含标题校验",
+    "必要性": "Important",
+    "评估维度": "鲁棒性（robustness）",
+    "验证方式": "动态-人工验证",
+    "显性(Explicit)隐性（Implicit）": "Implicit",
+    "rationale": "表单校验应该包含标题校验，确保用户输入必要的信息，这是隐性的鲁棒性要求。"
+  },
+  {
+    "rubric_id": "17",
+    "rubric_content": "表单校验必须包含日期校验",
+    "必要性": "Important",
+    "评估维度": "鲁棒性（robustness）",
+    "验证方式": "动态-人工验证",
+    "显性(Explicit)隐性（Implicit）": "Implicit",
+    "rationale": "表单校验应该包含日期校验，确保用户选择必要的日期信息，这是隐性的鲁棒性要求。"
+  },
+  {
+    "rubric_id": "18",
+    "rubric_content": "表单校验必须包含时间校验",
+    "必要性": "Important",
+    "评估维度": "鲁棒性（robustness）",
+    "验证方式": "动态-人工验证",
+    "显性(Explicit)隐性（Implicit）": "Implicit",
+    "rationale": "表单校验应该包含时间校验，确保用户选择必要的时间信息，这是隐性的鲁棒性要求。"
+  },
+  {
+    "rubric_id": "19",
+    "rubric_content": "操作成功/失败时，必须提供友好的用户反馈",
+    "必要性": "Important",
+    "评估维度": "风格（style）",
+    "验证方式": "动态-人工验证",
+    "显性(Explicit)隐性（Implicit）": "Implicit",
+    "rationale": "良好的用户体验应该包含友好的操作反馈，如成功/失败提示，这是隐性的用户体验要求。"
+  },
+  {
+    "rubric_id": "20",
+    "rubric_content": "必须支持数据持久化",
+    "必要性": "Essential",
+    "评估维度": "功能要求（functional requirement）",
+    "验证方式": "动态-人工验证",
+    "显性(Explicit)隐性（Implicit）": "Implicit",
+    "rationale": "使用本地存储的目的是实现数据持久化，确保重启应用后数据不丢失，这是隐性的功能要求。"
+  },
+  {
+    "rubric_id": "21",
+    "rubric_content": "弹窗组件各表单控件（如输入框、下拉框等）文本对齐方式统一，居中对齐/左对齐",
+    "必要性": "Optional",
+    "评估维度": "风格（style）",
+    "验证方式": "动态-人工验证",
+    "显性(Explicit)隐性（Implicit）": "Implicit",
+    "rationale": "良好的用户体验，弹窗组件各表单控件文本对齐方式应该统一，居中对齐/左对齐，这是隐性的代码质量要求，需要通过人工检查验证。"
+  },
+  {
+    "rubric_id": "22",
+    "rubric_content": "删除操作二次确认",
+    "必要性": "Optional",
+    "评估维度": "鲁棒性（robustness）",
+    "验证方式": "动态-人工验证",
+    "显性(Explicit)隐性（Implicit）": "Implicit",
+    "rationale": "良好的用户体验，删除操作应该二次确认，这是隐性的鲁棒性要求，需要通过人工检查验证。"
+  }
+]
