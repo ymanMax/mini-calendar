@@ -2,3 +2,130 @@
   margin: 30px;
   text-align: center;
 }
+
+/* 日程管理样式 */
+.schedule-manager {
+  margin: 20rpx;
+  padding: 20rpx;
+  background-color: #f9f9f9;
+  border-radius: 10rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+  color: #333;
+}
+
+.selected-date {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 20rpx;
+  padding: 10rpx;
+  background-color: #fff;
+  border-radius: 5rpx;
+}
+
+.schedule-input {
+  margin-bottom: 30rpx;
+}
+
+.schedule-title-input,
+.schedule-content-input {
+  width: 100%;
+  padding: 20rpx;
+  margin-bottom: 15rpx;
+  border: 1rpx solid #ddd;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+
+.schedule-content-input {
+  min-height: 120rpx;
+}
+
+.add-btn {
+  width: 100%;
+  padding: 20rpx;
+  background-color: #007aff;
+  color: #fff;
+  border: none;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+}
+
+.schedule-list {
+  margin-top: 20rpx;
+}
+
+.list-title {
+  font-size: 30rpx;
+  font-weight: bold;
+  margin-bottom: 15rpx;
+  color: #333;
+}
+
+.schedule-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20rpx;
+  margin-bottom: 15rpx;
+  background-color: #fff;
+  border-radius: 8rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.schedule-info {
+  flex: 1;
+  margin-right: 20rpx;
+}
+
+.schedule-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8rpx;
+}
+
+.schedule-content {
+  font-size: 26rpx;
+  color: #666;
+  margin-bottom: 8rpx;
+}
+
+.schedule-date {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.schedule-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.edit-btn,
+.delete-btn {
+  padding: 10rpx 15rpx;
+  font-size: 24rpx;
+}
+
+.edit-btn {
+  background-color: #ffc107;
+  color: #333;
+}
+
+.delete-btn {
+  background-color: #ff4444;
+  color: #fff;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60rpx 20rpx;
+  color: #999;
+  font-size: 28rpx;
+}
