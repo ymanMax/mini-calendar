@@ -1,4 +1,55 @@
 <calendar title="" spotMap="{{spotMap}}" bindgetDateList="getDateList" bindselectDay="selectDay" bindopenChange="openChange" disabledDate="{{disabledDate}}" changeTime="{{changeTime}}"></calendar>
+
+<!-- 备忘录功能区域 -->
+<view class="memo-section">
+  <view class="memo-header">
+    <text class="memo-title">备忘录</text>
+    <button class="add-memo-btn" bindtap="showAddMemoModal" size="mini" type="primary">添加备忘录</button>
+  </view>
+
+  <!-- 选中日期显示 -->
+  <view wx:if="{{selectedDate}}" class="selected-date">
+    当前选择日期: {{selectedDate}}
+  </view>
+
+  <!-- 备忘录列表 -->
+  <view class="memo-list">
+    <view wx:for="{{memos}}" wx:key="id" class="memo-item">
+      <view class="memo-content">{{item.content}}</view>
+      <view class="memo-actions">
+        <button size="mini" bindtap="showEditMemoModal" data-memo="{{item}}">编辑</button>
+        <button size="mini" type="warn" bindtap="deleteMemo" data-id="{{item.id}}">删除</button>
+      </view>
+    </view>
+    <view wx:if="{{memos.length === 0}}" class="no-memos">
+      暂无备忘录
+    </view>
+  </view>
+</view>
+
+<!-- 备忘录弹窗 -->
+<view wx:if="{{showMemoModal}}" class="modal-overlay" bindtap="closeMemoModal">
+  <view class="modal-content" catchtap="stopPropagation">
+    <view class="modal-header">
+      <text>{{currentMemo ? '编辑' : '添加'}}备忘录</text>
+      <text class="close-btn" bindtap="closeMemoModal">×</text>
+    </view>
+    <view class="modal-body">
+      <textarea
+        class="memo-input"
+        placeholder="请输入备忘录内容"
+        value="{{memoContent}}"
+        bindinput="onMemoInput"
+        auto-height
+      ></textarea>
+    </view>
+    <view class="modal-footer">
+      <button class="cancel-btn" bindtap="closeMemoModal">取消</button>
+      <button class="save-btn" type="primary" bindtap="saveMemo">保存</button>
+    </view>
+  </view>
+</view>
+
 <view class="operation-wrap">
   <button bindtap="changetime" size="mini">点击跳转至22年1月1日</button>
 </view>
